@@ -1,0 +1,436 @@
+EFS 2.0G verification — 4 November 2026 (Asia/Colombo)
+PHP 8.3.6 / MariaDB 10.11.14 / Chromium 131
+388 passing behavioural checks
+
+
+run.php
+PASS Setup currency selection
+PASS Setup cannot overwrite an existing station
+PASS Station logo persists without truncation in snapshot
+PASS Valid station logo accepted and saved
+PASS Replacement station logo overwrites previous logo
+PASS Invalid image content rejected
+PASS Oversized image dimensions rejected
+PASS Image above 300 KB rejected
+PASS Viewer cannot replace station logo
+PASS Failed logo uploads preserve persisted replacement
+PASS Integer quantity and half-up money rounding
+PASS Reject excess decimal precision
+PASS Sale reduces stock exactly once
+PASS Identical retry returns original receipt
+PASS Retry does not reduce stock again
+PASS Reused key with different payload rejected
+PASS Mismatched allocation rolls back
+PASS Failed sale leaves stock unchanged
+PASS Unverified card payment rejected
+PASS Confirmed card payment accepted
+PASS Credit sale posts customer ledger
+PASS Credit limit enforced
+PASS Customer receipt reduces debt
+PASS Customer collection does not duplicate revenue
+PASS Only unreturned test fuel reduces stock
+PASS Rate change splits meter period
+PASS Shift reconciles float, sales, old credit receipt, cash drop and rate periods
+PASS Closed shift blocks new sales
+PASS Piecewise calibration interpolation
+PASS Out-of-chart dip rejected
+PASS Duplicate chart reading rejected
+PASS Dip water volume is deducted
+PASS No fabricated density correction
+PASS Delivery creates correct supplier payable
+PASS Supplier payment reduces payable
+PASS Shop product restocking
+PASS Viewer cannot open a shift
+PASS Stock cannot become negative
+PASS Portable SQL backup restores all committed sales
+PASS Restored customer balances match
+PASS SQL backup views refer to the restored database
+PASS Backup checksum matches exported bytes
+PASS Licensed mode locks before activation
+PASS Valid signed device lease unlocks billing
+PASS Tampered signature locks billing
+
+45 checks passed. Temporary test files: /tmp/petrolpos-test-80b071b1dc5aea947cd490369481672c
+
+mysql.php
+PASS Empty station contains no fuel_types sample records
+PASS Empty station contains no tanks sample records
+PASS Empty station contains no pumps sample records
+PASS Empty station contains no products sample records
+PASS Empty station contains no sales sample records
+PASS Empty station contains no customers sample records
+PASS Owner credentials are hashed
+PASS Numeric-looking settings remain strings
+PASS MySQL setting upsert updates its existing row
+PASS utf8mb4 round-trips Tamil and symbols
+PASS Username lookups ignore case
+PASS Case variants cannot duplicate a login
+PASS Same-second fuel prices follow insertion order, independent of random IDs
+PASS Generated unique index permits only one open shift per operator
+PASS Generated unique index permits only one open meter period
+PASS InnoDB foreign keys reject orphan nozzle records
+PASS Two concurrent 1 L sales accept exactly one when stock is 1 L
+PASS Concurrent loser receives the stock validation error
+PASS Concurrent sales cannot make tank stock negative
+PASS Concurrent rejection leaves no partial sale
+
+20 MySQL-specific checks passed.
+
+workspace.php
+PASS New owner has a linked employee record
+PASS Users Admin links a new login to an existing employee
+PASS One login cannot belong to two employee records
+PASS Viewer cannot add employees
+PASS Inactive employee cannot start a shift
+PASS Bank opening balance is recorded as a bank ledger entry
+PASS Negative opening balance needs overdraft permission
+PASS Transfer retry posts one balanced pair of bank entries
+PASS Changed-payload retry is rejected
+PASS Invalid destination rolls back transfer
+PASS Failed transfer leaves source account unchanged
+PASS Bank overdraft is blocked
+PASS Cashier cannot administer bank transfers
+PASS Product purchase adds stock and creates unpaid vendor balance
+PASS Paid-at-purchase amount reduces selected bank
+PASS Vendor invoice reference is unique across fuel and product purchases
+PASS Duplicate purchase does not change fuel stock
+PASS Paid purchase requires a bank account
+PASS Incomplete payment rolls back the whole purchase
+PASS Vendor payment reduces both payable and bank exactly once
+PASS Vendor overpayment is rejected
+PASS Employee with open shift cannot be deactivated
+PASS Open shift prevents reassignment of employee login
+PASS Open shift prevents changing operator to viewer
+PASS Shift cash deposit moves drawer cash into bank without sales
+PASS Bank expense reduces bank only
+PASS Bank customer collection clears receivable and credits bank
+PASS Bank credit collection changes neither revenue nor drawer cash
+PASS Completed shift shortage becomes pump receivable
+PASS Pump receipt retry reduces the shortage once
+PASS Pump shortage cannot be over-collected
+PASS Cash recovery clears shortage and increases new shift drawer
+PASS Shortage recovery never adds sales revenue
+PASS Vendor statement includes invoice, initial payment and later payment
+PASS Bank statement closes at the account book balance
+PASS Date-filtered statement carries opening balance from historical entries
+PASS Pump statement uses meter less tests at the original price
+PASS Viewer cannot read bank ledger
+PASS Invalid statement date is rejected
+PASS Manual matching records evidence without modifying amount
+PASS An already matched bank entry cannot be matched twice
+PASS Admin password reset updates the hashed password
+PASS Owner cannot remove their own admin access
+PASS MySQL schema version stays valid after workspace transactions
+
+44 workspace checks passed. Isolated test files: /tmp/petrolpos-workspace-524a3c35dccb9cd47b96153f991b1a54
+
+workspace-upgrade.php
+PASS Fresh installation uses schema 9
+PASS Category code and name persist
+PASS Category codes are unique ignoring case
+PASS Viewer cannot create categories
+PASS Product quantities and prices use exact integer storage
+PASS Product references the saved category
+PASS Product rejects an unknown category
+PASS Packaged product registration rejects fractional units
+PASS Employee address, Day/Night choice and contact persist
+PASS Employee shift accepts only Day or Night
+PASS Vendor code, address, city and opening current balance persist
+PASS Vendor opening balance is included in the statement
+PASS Pump registration meter range and description persist
+PASS Pump rejects an end meter below its start meter
+PASS Additional pumps can be registered without a fixed three-pump limit
+PASS Con Bill No is assigned by the server
+PASS Company Bill No and selected date persist
+PASS Purchase retry returns the same document without receiving stock twice
+PASS Duplicate Company Bill No for the same vendor is rejected
+PASS Failed purchase does not consume a Con Bill number
+PASS Purchasing rejects an impossible date
+PASS Failed purchases leave product stock unchanged
+PASS Purchase payable is added to the vendor opening balance
+PASS Vendor statement and Current Balance agree after purchasing
+PASS Snapshot provides saved categories and joined product category names
+PASS Snapshot provides vendor codes and purchase document metadata
+PASS Product purchase edit updates the existing record and reconciles stock once
+PASS Product purchase edit recalculates vendor payable
+PASS Voiding a product purchase reverses stock without deleting the record
+PASS Voided purchase remains in history and is excluded from vendor balance
+PASS Vendor statement excludes voided purchasing records consistently with the balance view
+PASS A voided purchase cannot be voided twice
+PASS Editing a paid purchase reverses and reposts bank payment without deleting ledger entries
+PASS Repeated payment edits remain linked to one purchase and reconcile cumulatively
+PASS Voiding a paid purchase posts a bank reversal and retains all bank entries
+PASS Voiding a paid purchase reverses its payable
+PASS Matched purchase bank payment cannot be edited
+PASS Fuel delivery edit reconciles the tank stock movement
+PASS Voiding a fuel delivery reverses tank stock and retains its history
+PASS Purchase edit is rejected after its stock has been sold
+PASS Purchase void is rejected after its stock has been sold
+PASS Viewer cannot create a purchase
+PASS Concurrent purchases receive distinct system-generated Con Bill numbers
+PASS Concurrent purchases each receive stock exactly once
+PASS Schema 3 automatically migrates to schema 9
+PASS Migration preserves existing station and owner credentials
+PASS Migration preserves stock and categorises existing products
+PASS Migration assigns a unique code to an existing vendor
+PASS Migration preserves posted sales and payment totals
+PASS Migration preserves existing vendor payables
+PASS Migration preserves meter values and the audit trail
+PASS Migration backfills document numbers and dates for both historical purchase types
+PASS Migration adds reversible void metadata without replacing purchase rows
+PASS Migration links historical bank payments to their purchases
+PASS Each schema upgrade creates a private SQL backup before changing schema
+PASS Pre-upgrade SQL backup restores the original schema
+PASS Reopening upgraded data does not repeat migration or create duplicate categories
+
+57 Work Space upgrade checks passed.
+
+accounts-payable.php
+PASS Schema upgrades to version 9
+PASS Manual payable adds exact cents to opening balance
+PASS Payable retry is idempotent
+PASS Reusing a saved key with edited data is rejected
+PASS Invalid payable amount 0 rejected
+PASS Invalid payable amount -1 rejected
+PASS Invalid payable amount 1.005 rejected
+PASS Invalid payable amount 1e2 rejected
+PASS Impossible date rejected
+PASS Future transaction rejected
+PASS Entry before vendor registration rejected
+PASS Cash payment decreases payable exactly once without using a shift drawer
+PASS Cash payment does not reduce bank
+PASS Independent vendor cash payment works without an open drawer or shift balance
+PASS Own cheque reduces vendor and bank book at issue
+PASS Leading zeroes in cheque number are preserved
+PASS Duplicate own cheque number rejected
+PASS Insufficient bank funds rejected
+PASS Failed bank debit rolls back the payment
+PASS Legacy bank API remains compatible
+PASS Registering in-hand cheque posts no payable, cash or bank money
+PASS Duplicate party cheque rejected
+PASS Party register requires source-accounting acknowledgement
+PASS Partial party cheque transfer rejected
+PASS Party cheque reduces only vendor balance
+PASS Transferred cheque leaves available register
+PASS Used party cheque cannot be used again
+PASS Vendor overpayment rejected
+PASS Unknown payment method rejected
+PASS cashier cannot add vendor debt
+PASS cashier cannot pay vendors
+PASS cashier cannot register party cheques
+PASS cashier cannot read cheque register
+PASS viewer cannot add vendor debt
+PASS viewer cannot pay vendors
+PASS viewer cannot register party cheques
+PASS viewer cannot read cheque register
+PASS Statement totals reconcile with current balance
+PASS Statement includes manual payable description once
+PASS Used party cheque is not offered in snapshot
+PASS Same-second payments follow their recorded order
+PASS Concurrent payments cannot overpay one vendor
+PASS Concurrent identical retry produces one payment
+PASS Partially applied schema upgrade can be safely resumed
+
+44 Accounts Payable checks passed.
+
+regressions.php
+PASS Invalid password rejected without creating an owner
+PASS Invalid setup leaves owner table empty
+PASS Passwords beyond bcrypt byte limit rejected
+PASS Multibyte password byte limit enforced
+PASS Owner password whitespace preserved exactly
+PASS 61-character Tamil station name retained
+PASS Unicode validation counts characters, not bytes
+PASS Overlong Unicode name rejected
+PASS Malformed UTF-8 rejected
+PASS Calendar validation rejects impossible dates
+PASS Viewer gets the promised linked employee record
+PASS Two-character usernames rejected at creation
+PASS Viewer employee link does not grant write permissions
+PASS Non-Latin employee name and 400-character address round-trip
+PASS Overlong employee address gives validation error
+PASS Tamil category and product names save
+PASS New pump derives missing hidden description from selected product
+PASS Zero unpaid-invoice limit rejected instead of silently changed
+PASS Accented expense category and note round-trip
+PASS Invalid second pump entry rejects the whole batch
+PASS Failed batch rolls back first sale and stock
+PASS Failed batch retains original meter and does not reserve request key
+PASS Nonzero opening meters and sequential entries save with exact amounts
+PASS Successful batch deducts exactly the sold volume
+PASS Lost-response replay returns same batch without duplicate sales
+PASS Changed payload cannot reuse successful batch key
+PASS Viewer cannot save meter batches
+PASS Batch size limit enforced on server
+PASS Collections last page has one outstanding sale
+PASS Settled final page clamps back to remaining outstanding records
+PASS Today totals exclude tomorrow at the exact midnight boundary
+PASS Negative Celsius temperature stored exactly
+PASS Current schema 9 export accepted by recovery parser
+PASS Missing migration fixture changes the backup
+PASS Backup missing an intermediate migration is rejected
+PASS Backup with no migration records rejected
+PASS Restore replaces data with the uploaded snapshot
+PASS Restored sales count and stock match exported values
+PASS Restored collection balances match
+PASS Restored station reopens successfully with schema 9
+PASS Restore retry cannot overwrite subsequent activity
+PASS Broken foreign-key recovery rolls back
+PASS Failed restore retains committed sales and stock
+PASS Interrupted group-column migration resumes without duplicate-column failure
+
+44 regression checks passed.
+Petrol\Problem: Backup contains broken record links. Original data was retained. in /workspace/scratch/2a0433172a08/sales-redesign/efs2.0/app/Recovery.php:217
+Stack trace:
+#0 /workspace/scratch/2a0433172a08/sales-redesign/efs2.0/app/Core.php(159): Petrol\Recovery->Petrol\{closure}()
+#1 /workspace/scratch/2a0433172a08/sales-redesign/efs2.0/app/Recovery.php(205): Petrol\Db->tx(Object(Closure))
+#2 /workspace/scratch/2a0433172a08/sales-redesign/efs2.0/tests/regressions.php(89): Petrol\Recovery->restore(Array)
+#3 /workspace/scratch/2a0433172a08/sales-redesign/efs2.0/tests/regressions.php(10): {closure}()
+#4 /workspace/scratch/2a0433172a08/sales-redesign/efs2.0/tests/regressions.php(89): rejects(Object(Closure), 'Broken foreign-...')
+#5 {main}
+
+pump-edit.php
+PASS Latest sale quantity updates
+PASS Increasing a reading deducts only the extra product and tank volume
+PASS Live pump and nozzle readings follow the corrected latest sale
+PASS Receipt and item totals match the corrected sale
+PASS Cost and profit are recomputed with exact original rates
+PASS Retry of committed edit neither repeats stock deduction nor fails stale revision
+PASS Successful request key cannot be reused for a changed edit
+PASS Reducing a reading restores only its difference
+PASS Corrections append stock adjustments and retain the original movement
+PASS Concurrent edit cannot overwrite a newer employee assignment
+PASS Employee and shift edit does not move stock
+PASS An earlier reading edit must acknowledge the following sale
+PASS Earlier closing and following opening change together without a gap
+PASS Following sale starts at the corrected boundary
+PASS Both entries retain their own historical selling prices
+PASS Both entries retain their own historical cost rates
+PASS Boundary correction keeps combined stock consumption unchanged
+PASS Earlier correction preserves latest live meter
+PASS Boundary cannot reach the following closing meter
+PASS Invalid boundary leaves original row unchanged
+PASS Closing at original opening is rejected
+PASS Four-decimal correction is rejected
+PASS Client cannot rewrite opening meter
+PASS Client cannot rewrite historical selling price
+PASS Client cannot move a sale to another pump
+PASS Employee must belong to selected shift
+PASS New cash collection invalidates an already-open edit
+PASS Correction cannot reduce sale below collected cash
+PASS Collected cash cannot be reassigned to a different employee
+PASS Correction protects collected cash on the following sale too
+PASS Rejected neighbour correction is atomic
+PASS Corrections never rewrite actual cash receipts
+PASS Outstanding collection balances reflect corrected amounts
+PASS Viewer cannot open editor
+PASS Viewer cannot update sales
+PASS Cashier cannot edit another operator’s sale
+PASS Cashier edit preview does not expose costs
+PASS Cashier can update their own sale
+PASS Manager can open previous-day sale from Overview
+PASS Cashier cannot edit previous-day sales
+PASS Boundary correction cannot modify another day
+PASS New subsequent sale invalidates an already-open edit
+PASS Correction cannot oversell product stock
+PASS Failed stock correction rolls back inventory
+PASS Returning fuel cannot exceed tank capacity
+PASS Tank validation rolls back the product adjustment too
+PASS Changed tank connection cannot redirect a historical correction
+PASS Open billing shift prevents a meter boundary correction
+PASS Employee correction remains available when a billing shift owns the meter
+PASS Corrections retain before/after audit records
+PASS All edits update existing rows without adding duplicate sales
+PASS Standalone pump edit adjusts product stock without requiring a nozzle
+PASS Standalone edit advances its meter without touching a tank
+
+53 pump edit checks passed.
+
+pump-day.php
+PASS Available stock uses the lower product/tank balance
+PASS Daily control number is deterministic and date-specific
+PASS Invalid calendar dates rejected
+PASS Future sales rejected
+PASS Cashier cannot backdate a sale
+PASS Viewer cannot save daily sales
+PASS Mixed-date batch rejected
+PASS Invalid later line rejects the entire day batch
+PASS Failed day batch rolls back sales and stock
+PASS Manager can save a previous date with one control number
+PASS Day Save retry does not duplicate committed lines
+PASS Multiple sales aggregate to one daily total and exact profit
+PASS Backdated sale is booked on its selected business date
+PASS Overview includes pump name, fuel and every line
+PASS Overview total matches daily summary
+PASS A second date creates a second daily row
+PASS Cannot append old readings after a later-day sale exists
+PASS Historical edit updates both affected daily totals
+PASS Historical edit keeps each sale’s original cost and selling price
+PASS Cross-day boundary correction preserves combined tank consumption
+PASS Inclusive date filter and totals cover only the selected day
+PASS Reversed date filter rejected
+PASS Invalid report filter rejected
+PASS Cashier report does not expose profit
+PASS Cashier historical overview remains read-only without costs
+PASS Cashier can edit their own current-day sale
+PASS Daily report pagination returns all 55 days
+PASS Print/PDF export includes every filtered day, not only the visible page
+PASS Report offset clamps to the last available page
+PASS Empty date range returns zero totals
+PASS New daily workflow preserves schema 9 compatibility
+
+31 daily sales checks passed.
+
+browser
+PASS Clean package opens the first-install form
+PASS Invalid installer password gives a recoverable validation message
+PASS Corrected setup succeeds with Tamil station and owner names
+PASS Space-padded owner password signs in exactly as entered
+PASS Duplicate username error names the actual problem
+PASS Control number follows the selected date
+PASS Stock is blank until a pump is selected
+PASS Pump code and name are linked and load the true opening meter
+PASS Selected pump shows available liters
+PASS Live amount uses liters multiplied by selling price
+PASS Enter adds a pending Day Sales line without posting the database
+PASS Date, shift and employee remain selected after Enter
+PASS Only pump selectors and meter fields clear
+PASS Selecting pump name synchronizes its code and next pending opening
+PASS Available stock accounts for pending entries
+PASS Day total accumulates while unsaved lines stay out of Sales Report
+PASS Editing a pending boundary updates both volumes without changing total fuel
+PASS Pending lines and retained selections survive reload
+PASS Save posts all lines as one daily total and profit
+PASS Save also retains shift and employee
+PASS Historical saved row opens for editing
+PASS Saved historical edit updates adjacent meter boundaries
+PASS Insufficient stock keeps invalid input for correction
+PASS Lost response may commit once while retaining the retry key
+PASS Unconfirmed retry does not display the same saved line twice
+PASS Retry confirms the original batch without another sale
+PASS Two dates produce two report rows and correct combined totals
+PASS Overview loads that date’s full Day Sales details with Edit
+PASS Date filter updates report rows and totals together
+PASS day PDF downloads as a real nonempty PDF
+PASS report PDF downloads as a real nonempty PDF
+PASS Share PDF falls back to a WhatsApp-ready PDF download
+PASS A4 print view contains the selected day and correct total
+PASS Long PDF export produces paginated output
+PASS Desktop daily form stays compact
+PASS All five header fields fit on one desktop row
+PASS Mobile page has no horizontal overflow
+PASS Mobile Edit button remains reachable at the table edge
+PASS Mobile Overview button remains visible
+PASS Enter in Purchasing Notes inserts a newline, not a product
+PASS Incomplete-date CSV export stays on Reports
+PASS Reversed CSV range produces an inline error
+PASS Valid report downloads CSV without leaving Reports
+PASS Tank dip UI accepts negative Celsius
+PASS Four-decimal fuel input is rejected explicitly
+PASS Client precision and half-cent rounding match server integer arithmetic
+PASS Settling the last page returns to the 50 remaining unpaid sales
+PASS Consumed-purchase void rejection is visible inside the dialog
+PASS Rejected void retains the purchase
+PASS No uncaught browser JavaScript errors: 
+
+50 browser checks passed.

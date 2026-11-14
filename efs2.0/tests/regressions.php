@@ -1,0 +1,94 @@
+<?php
+declare(strict_types=1);
+require __DIR__.'/TestDb.php';
+require dirname(__DIR__).'/app/Station.php';
+require dirname(__DIR__).'/app/Recovery.php';
+use Petrol\{Db,Station,Recovery,Problem};
+use function Petrol\{uid,stamp,required,account_password,calendar_date};
+$count=0;
+function verify(bool $ok,string $message):void {global $count;if(!$ok)throw new RuntimeException('FAIL '.$message);echo 'PASS '.$message.PHP_EOL;$count++;}
+function rejects(callable $fn,string $message):void {try{$fn();}catch(Problem $e){verify(true,$message);return;}throw new RuntimeException('FAIL accepted '.$message);}
+try{
+$db=test_database();$config=test_last_config();$s=new Station($db);
+$owner=['owner_name'=>str_repeat('அ',61),'station_name'=>str_repeat('அ',61),'username'=>'owner','password'=>'  Test-pass-2026  '];
+rejects(fn()=>$s->setup(array_merge($owner,['password'=>'short'])),'Invalid password rejected without creating an owner');
+verify((int)$db->value('SELECT COUNT(*) FROM users')===0,'Invalid setup leaves owner table empty');
+rejects(fn()=>account_password(['password'=>str_repeat('a',73)]),'Passwords beyond bcrypt byte limit rejected');
+rejects(fn()=>account_password(['password'=>str_repeat('அ',25)]),'Multibyte password byte limit enforced');
+$u=$s->setup($owner);$hash=$db->value('SELECT password_hash FROM users WHERE id=?',[$u['id']]);
+verify(password_verify($owner['password'],$hash)&&!password_verify(trim($owner['password']),$hash),'Owner password whitespace preserved exactly');
+verify($db->setting('station_name')===$owner['station_name'],'61-character Tamil station name retained');
+verify(required(['name'=>str_repeat('é',160)],'name')===str_repeat('é',160),'Unicode validation counts characters, not bytes');
+rejects(fn()=>required(['name'=>str_repeat('é',161)],'name'),'Overlong Unicode name rejected');
+rejects(fn()=>required(['name'=>"\xff"],'name'),'Malformed UTF-8 rejected');
+verify(calendar_date('2024-02-29')&&!calendar_date('2025-02-29')&&!calendar_date('2026-02-31'),'Calendar validation rejects impossible dates');
+$viewer=$s->master('user',['name'=>'Observer','username'=>'viewer','password'=>'Viewer-pass-2026','role'=>'viewer'],$u);
+verify((int)$db->value('SELECT COUNT(*) FROM employees WHERE user_id=?',[$viewer['id']])===1,'Viewer gets the promised linked employee record');
+rejects(fn()=>$s->master('user',['name'=>'Too short','username'=>'ab','password'=>'Valid-pass-2026','role'=>'cashier'],$u),'Two-character usernames rejected at creation');
+rejects(fn()=>$s->saveEmployee(['code'=>'NO','name'=>'Blocked'],$viewer),'Viewer employee link does not grant write permissions');
+$employee=$s->saveEmployee(['code'=>'EMPTEST','name'=>str_repeat('அ',100),'address'=>str_repeat('界',400),'designation'=>str_repeat('é',80),'shift_type'=>'day'],$u);
+verify($employee['address']===str_repeat('界',400)&&$employee['name']===str_repeat('அ',100),'Non-Latin employee name and 400-character address round-trip');
+rejects(fn()=>$s->saveEmployee(['code'=>'LONG','name'=>'Employee','address'=>str_repeat('界',1001)],$u),'Overlong employee address gives validation error');
+$category=$s->saveCategory(['code'=>'FUEL','name'=>str_repeat('அ',100)],$u);
+$product=$s->saveProduct(['sku'=>'P92','name'=>str_repeat('அ',90),'quantity'=>'500','cost'=>'250','price'=>'300','category_id'=>$category['id']],$u);
+verify($category['name']===str_repeat('அ',100)&&$product['name']===str_repeat('அ',90),'Tamil category and product names save');
+$pump=$s->savePump(['code'=>'P1','name'=>'Pump 1','product_id'=>$product['id'],'start_meter'=>'100.125','end_meter'=>'100.125'],$u);
+verify($pump['description']===$product['name'],'New pump derives missing hidden description from selected product');
+rejects(fn()=>$s->master('customer',['code'=>'C0','name'=>'Customer','max_unpaid'=>'0'],$u),'Zero unpaid-invoice limit rejected instead of silently changed');
+$bank=$s->createBank(['code'=>'BANK','name'=>'Bank','bank_name'=>'Bank','opening_balance'=>'10000'],$u);
+$expense=$s->expense(['category'=>str_repeat('é',70),'note'=>str_repeat('é',150),'amount'=>'10','payment_method'=>'bank','bank_account_id'=>$bank['id']],$u);
+verify($expense['category']===str_repeat('é',70)&&$expense['note']===str_repeat('é',150),'Accented expense category and note round-trip');
+$entry=['sale_date'=>$s->meterToday(),'pump_id'=>$pump['id'],'employee_id'=>$employee['id'],'shift_type'=>'day','starting_meter'=>'100.125','closing_meter'=>'101.125','product_id'=>$product['id'],'price_cents'=>'30000'];
+$bad=['request_key'=>uid(),'entries'=>[$entry,array_merge($entry,['starting_meter'=>'101.125','closing_meter'=>'101.000'])]];
+rejects(fn()=>$s->workOnce('pump_meter_batch',$bad,$u,fn()=>$s->saveMeterBatch($bad,$u)),'Invalid second pump entry rejects the whole batch');
+verify((int)$db->value('SELECT COUNT(*) FROM sales')===0&&(int)$s->find('products',$product['id'])['stock_milli']===500000,'Failed batch rolls back first sale and stock');
+verify((int)$s->find('pumps',$pump['id'])['start_meter_ml']===100125&&(int)$db->value('SELECT COUNT(*) FROM workspace_requests')===0,'Failed batch retains original meter and does not reserve request key');
+$good=['request_key'=>uid(),'entries'=>[$entry,array_merge($entry,['starting_meter'=>'101.125','closing_meter'=>'102.125'])]];
+$result=$s->workOnce('pump_meter_batch',$good,$u,fn()=>$s->saveMeterBatch($good,$u));
+verify(count($result['rows'])===2&&$result['amount_cents']===60000,'Nonzero opening meters and sequential entries save with exact amounts');
+verify((int)$s->find('products',$product['id'])['stock_milli']===498000,'Successful batch deducts exactly the sold volume');
+$retry=$s->workOnce('pump_meter_batch',$good,$u,fn()=>$s->saveMeterBatch($good,$u));
+verify($retry===$result&&(int)$db->value('SELECT COUNT(*) FROM sales')===2,'Lost-response replay returns same batch without duplicate sales');
+$changed=$good;$changed['entries'][0]['closing_meter']='101.126';
+rejects(fn()=>$s->workOnce('pump_meter_batch',$changed,$u,fn()=>[]),'Changed payload cannot reuse successful batch key');
+rejects(fn()=>$s->saveMeterBatch($good,$viewer),'Viewer cannot save meter batches');
+rejects(fn()=>$s->saveMeterBatch(['request_key'=>uid(),'entries'=>array_fill(0,21,$entry)],$u),'Batch size limit enforced on server');
+for($i=0;$i<49;$i++){
+ $start=102125+$i*1000;$row=array_merge($entry,['starting_meter'=>number_format($start/1000,3,'.',''),'closing_meter'=>number_format(($start+1000)/1000,3,'.',''),'request_key'=>uid()]);$s->saveMeterSale($row,$u);
+}
+$due=$s->meterReport(['scope'=>'due','offset'=>50],$u);verify(count($due['rows'])===1,'Collections last page has one outstanding sale');
+$s->collectMeterCash(['id'=>$due['rows'][0]['id'],'amount'=>'300.00','reference'=>'TEST-COLLECT'],$u);
+$due=$s->meterReport(['scope'=>'due','offset'=>50],$u);verify($due['offset']===0&&count($due['rows'])===50,'Settled final page clamps back to remaining outstanding records');
+$before=$s->snapshot($u)['totals'];$future=uid();
+$db->insert('sales',['id'=>$future,'idempotency_key'=>uid(),'receipt_no'=>'FUTURE','shift_id'=>null,'total_cents'=>12345,'cost_cents'=>10000,'created_at'=>$s->dayEnd(),'created_by'=>$u['id']]);
+$after=$s->snapshot($u)['totals'];verify($before===$after,'Today totals exclude tomorrow at the exact midnight boundary');
+$fuel=$s->master('fuel',['code'=>'DSL','name'=>'Diesel','price'=>'280'],$u);
+$tank=$s->master('tank',['code'=>'T1','name'=>'Tank','fuel_type_id'=>$fuel['id'],'capacity_liters'=>'1000','opening_liters'=>'500'],$u);
+$s->chart(['tank_id'=>$tank['id'],'name'=>'Test only','points'=>"0,0\n100,1000"],$u);
+$dip=$s->dip(['tank_id'=>$tank['id'],'dip_mm'=>'50','water_mm'=>'0','temperature'=>'-5.125'],$u);
+verify($dip['temperature_milli_c']===-5125,'Negative Celsius temperature stored exactly');
+// Verify actual export/upload/restore and rollback, never against the user's database.
+$folder=sys_get_temp_dir().'/efs-recovery-'.uid();mkdir($folder,0700,true);$recovery=new Recovery($db,$folder);
+$db->backup($folder.'/baseline.sql');$sql=file_get_contents($folder.'/baseline.sql');
+$tables=$recovery->parse($sql);verify(count($tables)>40,'Current schema 10 export accepted by recovery parser');
+$broken=preg_replace('/^INSERT INTO `schema_migrations` .* VALUES \\(\x278\x27,.*;\n/m','',$sql);
+verify($broken!==$sql,'Missing migration fixture changes the backup');
+rejects(fn()=>$recovery->parse($broken),'Backup missing an intermediate migration is rejected');
+$empty=preg_replace('/^INSERT INTO `schema_migrations` .*;\n/m','',$sql);
+rejects(fn()=>$recovery->parse($empty),'Backup with no migration records rejected');
+$upload=$recovery->upload(['name'=>'baseline.sql','content'=>base64_encode($sql)]);
+$s->saveCategory(['code'=>'AFTER','name'=>'After backup'],$u);
+$restored=$recovery->restore(['id'=>$upload['id'],'confirm'=>'RESTORE']);
+verify($restored['restored']&&(int)$db->value("SELECT COUNT(*) FROM categories WHERE code='AFTER'")===0,'Restore replaces data with the uploaded snapshot');
+verify((int)$db->value('SELECT COUNT(*) FROM sales')===52&&(int)$s->find('products',$product['id'])['stock_milli']===449000,'Restored sales count and stock match exported values');
+verify((int)$db->value('SELECT SUM(collected_cents) FROM pump_meter_sales')===30000,'Restored collection balances match');
+verify((new Db($config))->setting('station_name')===$owner['station_name'],'Restored station reopens successfully with schema 10');
+rejects(fn()=>$recovery->restore(['id'=>$upload['id'],'confirm'=>'RESTORE']),'Restore retry cannot overwrite subsequent activity');
+$malformed=preg_replace_callback('/^INSERT INTO `sale_items` .*;$/m',fn($m)=>str_replace("'".$product['id']."'","'missing-product'",$m[0]),$sql);
+$badUpload=$recovery->upload(['name'=>'bad-links.sql','content'=>base64_encode($malformed)]);
+rejects(fn()=>$recovery->restore(['id'=>$badUpload['id'],'confirm'=>'RESTORE']),'Broken foreign-key recovery rolls back');
+verify((int)$db->value('SELECT COUNT(*) FROM sales')===52&&(int)$s->find('products',$product['id'])['stock_milli']===449000,'Failed restore retains committed sales and stock');
+$db->run('DELETE FROM schema_migrations WHERE version>=9');$config['backup_dir']=$folder.'/backups';$resumed=new Db($config);
+verify((int)$resumed->value('SELECT MAX(version) FROM schema_migrations')===10,'Interrupted group-column migration resumes without duplicate-column failure');
+echo "\n$count regression checks passed.\n";
+}catch(Throwable $e){fwrite(STDERR,(string)$e.PHP_EOL);exit(1);}

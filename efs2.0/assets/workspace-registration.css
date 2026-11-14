@@ -1,0 +1,957 @@
+/* EFS 1.4 Work Space registers; inherits the station day/night palette. */
+.registration-panel{max-width:1100px}.registration-heading{display:flex;gap:15px;align-items:flex-start;margin-bottom:26px}.registration-heading>span{width:33px;height:33px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;flex:none;color:var(--accent);font-size:11px;font-weight:700;background:var(--panel2)}.registration-heading h2{font-size:19px;margin-bottom:5px}.registration-heading .sub{font-size:12px;line-height:1.7}.registration-panel .form-grid{gap:21px}.registration-panel form>div+div,.registration-panel form>label,.registration-panel form>fieldset{margin-top:21px}.registration-actions{display:flex;gap:12px;justify-content:flex-end;border-top:1px solid var(--line);padding-top:20px;margin-top:20px}.registration-panel .form-error:empty,.pump-registration-card .form-error:empty{display:none}.registration-panel input[readonly],.pump-registration-card input[readonly]{background:var(--panel2);color:var(--muted);cursor:default}.registration-advanced>summary{cursor:pointer;color:var(--accent);font-size:13px;font-weight:650}.registration-advanced[open]>summary{margin-bottom:20px}.registration-advanced .actions{margin-bottom:16px}.product-price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:21px}.registration-category{max-width:100%}.registration-panel .notice a{font-weight:650;text-decoration:underline}.employee-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:21px;align-items:start}.employee-shift{padding:0;border:0;min-width:0;margin:0}.employee-shift legend{font-size:12px;color:var(--muted);margin-bottom:9px}.shift-radio-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}.shift-radio-options label{position:relative;display:block;cursor:pointer}.shift-radio-options input{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:15px;height:15px;margin:0;accent-color:var(--accent);z-index:1}.shift-radio-options span{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:18px 12px 18px 30px;background:var(--panel2);color:var(--muted);min-height:65px}.shift-radio-options input:checked+span{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--panel));color:var(--text)}.shift-radio-options input:focus-visible+span{outline:3px solid var(--accent);outline-offset:3px}.shift-radio-options .icon{width:18px;height:18px}.employee-contact{max-width:calc(50% - 11px)}.vendor-code-row{max-width:calc(50% - 11px);margin-left:auto}.vendor-name-row>label:first-child input{font-variant-numeric:tabular-nums}.purchase-date-row{max-width:300px}.purchase-number{padding:20px;border:1px solid var(--line);border-radius:14px;background:var(--bg);margin-inline:0}.purchase-number legend{font-size:13px;color:var(--accent);font-weight:650;padding:0 8px}.purchase-number .form-hint{margin-top:12px}.purchase-vendor label{font-size:12px}.purchase-kind{max-width:360px;padding-top:20px;border-top:1px solid var(--line)}.purchase-total{border:1px solid var(--line);border-radius:11px;padding:12px 17px;background:var(--panel2);display:flex;justify-content:space-between;align-items:center;gap:10px;align-self:end;min-height:49px}.purchase-total strong{font-size:23px;font-weight:650;white-space:nowrap;font-variant-numeric:tabular-nums}.purchase-total small{font-size:11px}.purchase-payment-row{border-top:1px solid var(--line);padding-top:20px}.pump-registration-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.pump-registration-card{min-width:0;padding:23px}.pump-registration-top{display:flex;align-items:center;gap:12px;margin-bottom:24px}.pump-registration-top>.tag{margin-left:auto;font-size:9px;white-space:nowrap}.pump-registration-top h2{font-size:19px;margin-top:5px}.pump-registration-top .eyebrow{font-size:8px;letter-spacing:1.2px}.pump-registration-top .pump-emblem{width:40px;height:40px;flex:none}.pump-registration-form>label,.pump-registration-form>.meter-grid,.pump-registration-form>.pump-connection{margin-top:18px}.pump-registration-form>label:first-of-type{margin-top:0}.pump-registration-form .meter-grid{gap:13px}.pump-registration-form .meter-grid label{font-size:11px}.pump-connection{font-size:11px;color:var(--muted);line-height:1.8;padding-top:15px;border-top:1px solid var(--line)}.pump-connection summary{cursor:pointer;color:var(--accent)}.pump-connection label{margin-top:13px}.pump-connection small{display:block;margin-top:8px}.pump-registration-card .registration-actions .btn{width:100%;justify-content:center}.pump-registration-card .form-error{margin-top:15px}.registration-panel .form-grid>label,.product-price-grid>label,.employee-detail-grid>label{min-width:0}.registration-panel input,.registration-panel select,.registration-panel textarea,.pump-registration-card input,.pump-registration-card select{max-width:100%}#purchase-bank-field[hidden]{display:none}.registration-panel fieldset{min-width:0}.registration-panel .form-grid,.registration-panel .product-price-grid{align-items:start}@media(max-width:1250px){.pump-registration-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:850px){.pump-registration-grid{grid-template-columns:1fr}.pump-registration-card{padding:23px}.registration-heading .sub{font-size:11px}.employee-detail-grid{grid-template-columns:1fr 1fr}.shift-radio-options{gap:8px}.shift-radio-options span{padding-left:25px;font-size:11px}.shift-radio-options .icon{display:none}}@media(max-width:600px){.registration-panel{padding:20px}.registration-panel .form-grid,.employee-detail-grid,.product-price-grid{grid-template-columns:1fr;gap:17px}.registration-heading{gap:11px;margin-bottom:21px}.registration-heading h2{font-size:18px}.registration-heading>span{width:29px;height:29px;border-radius:8px}.vendor-code-row,.employee-contact,.purchase-date-row,.purchase-kind{max-width:none;margin-left:0}.registration-actions{flex-wrap:wrap}.registration-actions>.btn{flex:1;justify-content:center;min-width:140px}.purchase-number{padding:16px}.employee-shift{margin-bottom:0}.shift-radio-options .icon{display:block}.shift-radio-options span{min-height:54px;font-size:13px}.pump-registration-top{gap:10px}.pump-registration-top .tag{font-size:8px}.purchase-total strong{font-size:21px}}
+/* Compact Category Page */
+
+.category-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+.category-compact {
+    max-width: 850px;
+    padding: 18px 22px;
+}
+
+.category-compact .registration-heading {
+    margin-bottom: 12px;
+    gap: 10px;
+}
+
+.category-compact .registration-heading h2 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.category-compact .registration-heading .sub {
+    display: none;
+}
+
+.category-compact .registration-heading > span {
+    width: 28px;
+    height: 28px;
+}
+
+.category-compact .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.category-compact input {
+    min-height: 36px;
+    padding: 8px 10px;
+    font-size: 13px;
+}
+
+.category-compact .registration-actions {
+    margin-top: 12px;
+    padding-top: 12px;
+}
+
+@media (max-width: 600px) {
+    .category-compact .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CATEGORY PAGE - COMPACT & EXPANDED */
+
+.category-compact {
+    width: 100%;
+    max-width: none;
+    padding: 16px 20px;
+    box-sizing: border-box;
+}
+
+/* Reduce heading space */
+.category-compact .registration-heading {
+    gap: 9px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.category-compact .registration-heading > span {
+    width: 27px;
+    height: 27px;
+    border-radius: 8px;
+}
+
+.category-compact .registration-heading h2 {
+    font-size: 15px;
+    margin: 0;
+}
+
+/* Two compact input fields */
+.category-compact .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.category-compact .form-grid input {
+    min-height: 34px;
+    height: 34px;
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+/* Reduce empty space below inputs */
+.category-compact .registration-actions {
+    margin-top: 10px;
+    padding-top: 10px;
+    gap: 8px;
+}
+
+/* Smaller Add Category button */
+.category-compact .registration-actions .btn {
+    width: auto;
+    min-width: 0;
+    min-height: 32px;
+    padding: 7px 12px;
+    font-size: 11px;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    .category-compact {
+        padding: 14px;
+    }
+
+    .category-compact .form-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+/* Category page spacing only */
+body:has(.category-compact) .main-content {
+    padding-top: 12px;
+}
+
+body:has(.category-compact) .section-gap {
+    margin-top: 10px;
+}
+
+body:has(.category-compact) .category-compact {
+    margin-top: 0;
+}
+/* PRODUCT FORM COMPACT LAYOUT */
+
+/* Item Code + Name + Quantity */
+#product-form .product-basic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+/* Cost Price + Selling Price */
+#product-form .product-price-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+/* Category + Total Value */
+#product-form .product-category-row {
+    display: grid;
+    grid-template-columns: minmax(150px, 260px) minmax(0, 1fr);
+    gap: 12px;
+    align-items: end;
+}
+
+/* Small Category Dropdown */
+#product-form .registration-category {
+    max-width: none;
+}
+
+#product-form input,
+#product-form select {
+    min-height: 38px;
+    padding: 8px 10px;
+}
+
+/* Total Value Display */
+#product-form .category-stock-value {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    min-height: 38px;
+    padding: 8px 12px;
+
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--panel2);
+
+    font-size: 12px;
+}
+
+#product-form .category-stock-value strong {
+    color: var(--accent);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* Reduce Vertical Spacing */
+#product-form > div + div {
+    margin-top: 12px;
+}
+
+/* Responsive Layout */
+@media (max-width: 650px) {
+
+    #product-form .product-basic-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #product-form .product-price-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #product-form .product-category-row {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* EFS Fuel Pump Logo */
+
+.pump-register-table .pump-title-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.pump-register-table .pump-icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 23px;
+    height: 23px;
+    flex-shrink: 0;
+    border-radius: 7px;
+    color: #60e5bc;
+    background: rgba(96, 229, 188, 0.10);
+    border: 1px solid rgba(96, 229, 188, 0.20);
+}
+
+.pump-register-table .pump-icon-badge .icon {
+    width: 15px;
+    height: 15px;
+}
+
+.pump-register-table .pump-title-inline .pump-table-name {
+    display: inline-block;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.2;
+}
+/* Product Register - Total Price Row */
+
+.product-register-total th,
+.product-register-total td {
+    padding: 14px 13px;
+    border-top: 1px solid var(--accent);
+    background: color-mix(
+        in srgb,
+        var(--accent) 8%,
+        var(--panel)
+    );
+}
+
+.product-register-total th {
+    text-align: right;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: none;
+}
+
+.product-register-total td.amount {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 13px;
+}
+/* EFS - COMPACT EMPLOYEE FORM */
+
+.registration-panel.employee-compact {
+    width: 100%;
+    max-width: none;
+    padding: 15px 18px;
+    box-sizing: border-box;
+}
+
+/* Compact heading */
+
+.employee-compact .registration-heading {
+    margin-bottom: 10px;
+    gap: 8px;
+    align-items: center;
+}
+
+.employee-compact .registration-heading > span {
+    width: 28px;
+    height: 28px;
+}
+
+.employee-compact .registration-heading h2 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.employee-compact .registration-heading .sub {
+    display: none;
+}
+
+/* FIRST ROW - THREE COLUMNS */
+
+#employee-form .employee-form-fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 11px 12px;
+    align-items: start;
+}
+
+#employee-form .employee-form-fields > div {
+    min-width: 0;
+    margin: 0;
+}
+
+#employee-form .employee-form-fields label {
+    gap: 5px;
+}
+
+/* SECOND ROW - TWO FIELDS */
+
+#employee-form .employee-field-address {
+    grid-column: 1 / span 2;
+}
+
+#employee-form .employee-field-contact {
+    grid-column: 3;
+}
+
+/* Compact inputs and dropdown */
+
+#employee-form .employee-form-fields input,
+#employee-form .employee-form-fields select,
+#employee-form .employee-form-fields textarea {
+    width: 100%;
+    min-height: 38px;
+    height: 38px;
+    padding: 7px 10px;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+#employee-form .employee-field-address textarea {
+    min-height: 42px;
+    height: 42px;
+    resize: vertical;
+}
+
+/* Remove unnecessary gaps */
+
+.employee-compact #employee-form > div + div {
+    margin-top: 0;
+}
+
+.employee-compact #employee-form .registration-actions {
+    margin-top: 10px;
+    padding-top: 10px;
+    gap: 8px;
+}
+
+/* Small Save button */
+
+.employee-compact #employee-form .registration-actions .btn {
+    min-height: 34px;
+    padding: 7px 12px;
+    font-size: 11px;
+}
+
+/* Space before employee register */
+
+body:has(.employee-compact) .section-gap {
+    margin-top: 12px;
+}
+
+/* Tablet */
+
+@media (max-width: 850px) {
+    #employee-form .employee-form-fields {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #employee-form .employee-field-shift {
+        grid-column: 1 / -1;
+    }
+
+    #employee-form .employee-field-address {
+        grid-column: 1;
+    }
+
+    #employee-form .employee-field-contact {
+        grid-column: 2;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    #employee-form .employee-form-fields {
+        grid-template-columns: 1fr;
+    }
+
+    #employee-form .employee-form-fields > div {
+        grid-column: 1 / -1;
+    }
+}
+/* EFS - EMPLOYEE COMPACT FORM FINAL */
+
+/* Smaller form panel */
+.registration-panel.employee-compact {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 0;
+    padding: 14px 16px;
+    box-sizing: border-box;
+}
+
+/* Compact heading */
+.employee-compact .registration-heading {
+    margin: 0 0 12px;
+    padding: 0;
+    gap: 8px;
+}
+
+.employee-compact .registration-heading .sub {
+    display: none;
+}
+
+/* FORCE 3 COLUMN LAYOUT */
+#employee-form .employee-form-fields {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 0.85fr !important;
+    grid-template-areas:
+        "code name shift"
+        "address address contact";
+    gap: 12px 12px !important;
+    align-items: start;
+    width: 100%;
+}
+
+/* Exact field positions */
+#employee-form .employee-field-code {
+    grid-area: code;
+}
+
+#employee-form .employee-field-name {
+    grid-area: name;
+}
+
+#employee-form .employee-field-shift {
+    grid-area: shift;
+}
+
+#employee-form .employee-field-address {
+    grid-area: address;
+    grid-column: auto !important;
+}
+
+#employee-form .employee-field-contact {
+    grid-area: contact;
+    grid-column: auto !important;
+}
+
+/* Remove old spacing */
+#employee-form .employee-form-fields > div {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin: 0 !important;
+    padding: 0;
+}
+
+#employee-form .employee-form-fields label {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    gap: 5px;
+    font-size: 11px;
+}
+
+/* Small input and select boxes */
+#employee-form .employee-form-fields input,
+#employee-form .employee-form-fields select {
+    width: 100%;
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 6px 9px !important;
+    font-size: 12px;
+    border-radius: 7px;
+    box-sizing: border-box;
+}
+
+/* Small address box */
+#employee-form .employee-field-address textarea {
+    width: 100%;
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: 7px 9px;
+    font-size: 12px;
+    border-radius: 7px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+/* Smaller gap before Save button */
+.employee-compact #employee-form .registration-actions {
+    margin-top: 10px;
+    padding-top: 9px;
+}
+
+.employee-compact #employee-form .registration-actions .btn {
+    min-height: 32px;
+    padding: 6px 12px;
+    font-size: 11px;
+}
+
+/* Tablet */
+@media (max-width: 850px) {
+    #employee-form .employee-form-fields {
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-areas:
+            "code name"
+            "shift shift"
+            "address contact";
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    #employee-form .employee-form-fields {
+        grid-template-columns: 1fr !important;
+        grid-template-areas:
+            "code"
+            "name"
+            "shift"
+            "address"
+            "contact";
+    }
+}
+
+/* Product Edit - Delete Button */
+
+#product-form .registration-actions .product-delete-button {
+    margin-right: auto;
+    min-height: 32px;
+    padding: 6px 12px;
+    border: 1px solid rgba(230,85,85,0.55);
+    background: rgba(230,85,85,0.08);
+    color: #ff9898;
+    font-size: 11px;
+}
+
+#product-form .registration-actions .product-delete-button:hover {
+    background: rgba(230,85,85,0.18);
+}
+
+/* EFS - Category Delete Button */
+
+#category-form .registration-actions .category-delete-button,
+#dialog .category-delete-button {
+    border: 1px solid rgba(230,85,85,0.6);
+    background: rgba(230,85,85,0.08);
+    color: #ff9898;
+    padding: 6px 12px;
+    min-height: 32px;
+    font-size: 11px;
+}
+
+#category-form .registration-actions .category-delete-button:hover,
+#dialog .category-delete-button:hover {
+    background: rgba(230,85,85,0.18);
+}
+
+/* EFS - VENDOR PAGE COMPACT */
+
+body:has(.vendor-registration) main {
+    padding-top: 12px;
+}
+
+.vendor-registration {
+    margin-top: 0;
+}
+
+.vendor-registration .registration-heading {
+    margin-bottom: 12px;
+}
+
+.vendor-registration .registration-heading h2 {
+    margin: 0;
+}
+
+body:has(.vendor-registration) .section-gap {
+    margin-top: 12px;
+}
+
+/* EFS - Smaller Add Vendor Panel */
+
+.registration-panel.vendor-registration {
+    width: 100%;
+    
+    margin-left: 0;
+    margin-right: auto;
+    padding: 14px 16px;
+    box-sizing: border-box;
+}
+
+/* Compact spacing */
+.vendor-registration .registration-heading {
+    margin-bottom: 10px;
+}
+
+/* Smaller form fields */
+.vendor-registration input,
+.vendor-registration textarea {
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* EFS - FULL WIDTH COMPACT VENDOR PANEL */
+
+/* Fill the marked horizontal area */
+.registration-panel.vendor-registration {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 12px 16px !important;
+    box-sizing: border-box;
+}
+
+/* Compact heading */
+.vendor-registration .registration-heading {
+    margin: 0 0 10px !important;
+    padding: 0 !important;
+}
+
+.vendor-registration .registration-heading .sub {
+    margin: 2px 0 0;
+    font-size: 11px;
+}
+
+/* Three columns across the panel */
+.vendor-registration #vendor-form {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 9px 12px !important;
+    align-items: start;
+}
+
+/* Flatten old two-column wrappers */
+.vendor-registration .vendor-code-row,
+.vendor-registration .vendor-name-row,
+.vendor-registration .vendor-address-row {
+    display: contents !important;
+}
+
+/* Compact field labels */
+.vendor-registration #vendor-form label {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0;
+    margin: 0 !important;
+    gap: 4px;
+    font-size: 11px;
+}
+
+/* Small input boxes */
+.vendor-registration #vendor-form input,
+.vendor-registration #vendor-form textarea {
+    width: 100% !important;
+    max-width: none !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 6px 9px !important;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+/* Smaller address box */
+.vendor-registration #vendor-form textarea {
+    resize: vertical;
+}
+
+/* Avoid an empty error row */
+.vendor-registration #vendor-form > .form-error:empty {
+    display: none;
+}
+
+.vendor-registration #vendor-form > .form-error:not(:empty) {
+    grid-column: 1 / -1;
+}
+
+/* Save button on the right */
+.vendor-registration #vendor-form .registration-actions {
+    grid-column: 1 / -1;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 !important;
+    padding-top: 7px !important;
+}
+
+/* Smaller action button */
+.vendor-registration .registration-actions .btn {
+    min-height: 32px;
+    padding: 6px 12px;
+    font-size: 11px;
+}
+
+/* Mobile layout */
+@media (max-width: 750px) {
+    .vendor-registration #vendor-form {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* EFS PURCHASE PAGE - COMPACT 4 ROW LAYOUT */
+
+.registration-panel.purchase-registration {
+    width: 100%;
+    max-width: none;
+    padding: 14px 17px;
+    box-sizing: border-box;
+}
+
+.purchase-registration .registration-heading {
+    margin-bottom: 10px;
+}
+
+.purchase-registration .registration-heading .sub {
+    display: none;
+}
+
+#purchase-form .purchase-compact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+        "date bills bills"
+        "vendor category product"
+        "quantity cost paid"
+        "notes notes total";
+    align-items: start;
+    gap: 10px 12px;
+}
+
+#purchase-form .purchase-compact-grid > * {
+    min-width: 0;
+    margin: 0;
+}
+
+#purchase-form .purchase-date-field { grid-area: date; max-width: none; }
+#purchase-form .purchase-bills { grid-area: bills; }
+#purchase-form .purchase-vendor-field { grid-area: vendor; }
+#purchase-form .purchase-category-field { grid-area: category; }
+#purchase-form .purchase-product-field { grid-area: product; }
+#purchase-form .purchase-quantity-field { grid-area: quantity; }
+#purchase-form .purchase-cost-field { grid-area: cost; }
+#purchase-form .purchase-paid-field { grid-area: paid; }
+#purchase-form .purchase-notes-field { grid-area: notes; }
+
+#purchase-form .purchase-total {
+    grid-area: total;
+    align-self: end;
+    min-height: 35px;
+    padding: 6px 10px;
+}
+
+#purchase-form .purchase-total strong {
+    font-size: 17px;
+}
+
+#purchase-form .purchase-compact-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    min-width: 0;
+    font-size: 11px;
+}
+
+#purchase-form .purchase-compact-grid input,
+#purchase-form .purchase-compact-grid select,
+#purchase-form .purchase-compact-grid textarea {
+    width: 100%;
+    min-width: 0;
+    min-height: 34px;
+    height: 34px;
+    padding: 6px 9px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+#purchase-form .purchase-notes-field textarea {
+    min-height: 38px;
+    height: 38px;
+    resize: vertical;
+}
+
+/* Purchasing Bill Numbers */
+
+#purchase-form .purchase-bills {
+    padding: 6px 10px 9px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+}
+
+#purchase-form .purchase-bills legend {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 650;
+    padding: 0 6px;
+}
+
+#purchase-form .purchase-bills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* Payment and Vendor Balance */
+
+#purchase-form #purchase-bank-field:not([hidden]) {
+    margin-top: 8px;
+}
+
+#purchase-form #purchase-vendor-balance:empty {
+    display: none;
+}
+
+#purchase-form #purchase-vendor-balance {
+    display: block;
+    margin-top: 4px;
+    font-size: 10px;
+}
+
+/* Smaller Save Button */
+
+#purchase-form > .form-error:empty {
+    display: none;
+}
+
+#purchase-form > .registration-actions {
+    margin: 12px 0 0;
+    padding-top: 10px;
+}
+
+#purchase-form > .registration-actions .btn {
+    min-height: 34px;
+    padding: 6px 12px;
+    font-size: 11px;
+}
+
+/* Tablet */
+
+@media (max-width: 850px) {
+    #purchase-form .purchase-compact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas:
+            "date date"
+            "bills bills"
+            "vendor category"
+            "product quantity"
+            "cost paid"
+            "notes total";
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    #purchase-form .purchase-compact-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "date"
+            "bills"
+            "vendor"
+            "category"
+            "product"
+            "quantity"
+            "cost"
+            "paid"
+            "notes"
+            "total";
+    }
+
+    #purchase-form .purchase-bills-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* EFS Pump Current Balance */
+
+.pump-register-table .pump-balance-cell {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.pump-register-table .pump-product-current-balance {
+    display: inline-block;
+    color: #63e6bd;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.pump-register-table .pump-balance-unlinked {
+    color: #8fa5a1;
+    font-size: 11px;
+}
+/* Employee register delete button */
+
+.employee-delete-button {
+    min-height: 30px;
+    padding: 5px 10px;
+    border: 1px solid rgba(230, 85, 85, 0.6);
+    background: rgba(230, 85, 85, 0.08);
+    color: #ff9898;
+    font-size: 11px;
+}
+
+.employee-delete-button:hover {
+    background: rgba(230, 85, 85, 0.18);
+}
+/* Vendor edit form: delete action */
+
+#vendor-form .registration-actions .vendor-delete-button {
+  margin-right: auto;
+}
+
+#vendor-form .vendor-delete-button,
+#vendor-delete-form .vendor-delete-button {
+  min-height: 32px;
+  padding: 6px 12px;
+  border: 1px solid #d45454;
+  background: rgba(212, 84, 84, 0.1);
+  color: #ffabab;
+  font-size: 12px;
+}
+
+#vendor-form .vendor-delete-button:hover,
+#vendor-delete-form .vendor-delete-button:hover {
+  background: rgba(212, 84, 84, 0.22);
+}
+
+[data-theme="light"] #vendor-form .vendor-delete-button,
+[data-theme="light"] #vendor-delete-form .vendor-delete-button {
+  color: #a52222;
+}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ezy Filling System">
+  <rect width="64" height="64" rx="17" fill="#6ce7be"/>
+  <path d="M33 8C29 16 14 29 14 40a19 19 0 0 0 38 0C52 29 37 16 33 8Z" fill="#0b302b"/>
+  <path d="M25 30h16v5H30v4h9v5h-9v4h11v5H25Z" fill="#d6ffe9"/>
+</svg>

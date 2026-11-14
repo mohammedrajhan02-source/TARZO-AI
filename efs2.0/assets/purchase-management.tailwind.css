@@ -1,0 +1,58 @@
+/* Compile locally with Tailwind CSS 3.4.17 (no preflight or CDN at runtime). */
+#app[data-screen-route=purchasing] #main {background:var(--bg);min-height:calc(100vh - 60px);width:100%;max-width:none;color:var(--text)}
+#app[data-screen-route=purchasing] .workspace {min-width:0}
+.po-screen,.po-document {font-family:inherit;color:var(--text);min-width:0}
+.po-screen {display:grid;gap:16px}
+.po-screen h1 {margin:0;font-size:clamp(1.4rem,2.2vw,2rem);line-height:1.18;font-weight:700;color:var(--text);letter-spacing:-.035em}
+.po-card {@apply rounded-2xl overflow-hidden;min-width:0;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}
+.po-band {@apply flex items-center gap-2;min-height:49px;padding:10px 18px;background:var(--panel2);border-bottom:1px solid var(--line);color:var(--text)}
+.po-band h2 {font-size:18px;line-height:1.3;font-weight:700;letter-spacing:-.025em;margin:0;color:inherit}
+.po-band .icon {width:22px;height:22px}
+.po-body {padding:16px 18px}
+.po-body fieldset {min-width:0;margin:0;padding:0;border:none;display:block}
+.po-head-grid,.po-search-grid,.po-filter,.po-line-options {@apply grid items-end gap-3;min-width:0}
+.po-head-grid {grid-template-columns:minmax(132px,.95fr) minmax(100px,.9fr) minmax(110px,1fr) minmax(146px,1.25fr) auto}
+.po-search-grid {grid-template-columns:minmax(0,1.38fr) minmax(0,1fr) auto;margin:12px 0}
+.po-filter {grid-template-columns:minmax(130px,.95fr) minmax(130px,.95fr) minmax(136px,1.1fr) minmax(130px,1fr) auto auto;margin-bottom:14px}
+.po-line-options {grid-template-columns:1fr 1.4fr 2fr auto}
+.po-screen label {display:block;font-size:15px;line-height:1.4;font-weight:600;letter-spacing:0;color:var(--text)}
+.po-star {color:var(--red)}
+.po-screen input,.po-screen select,.po-screen textarea {display:block;width:100%;min-width:0;height:40px;padding:0 12px;margin:5px 0 0;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit;font-weight:500;font-size:15px;box-shadow:none}
+.po-screen input[readonly]{background:var(--panel2);color:var(--muted)}
+.po-screen input::placeholder,.po-screen textarea::placeholder{color:var(--muted)}
+.po-screen input:focus,.po-screen select:focus,.po-screen textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);outline-offset:0}
+.po-search-box{position:relative;display:block}
+.po-search-box>.icon{position:absolute;left:12px;top:12px;width:16px;height:16px;color:var(--muted)}
+.po-search-box input{padding-left:35px}
+.po-btn {@apply inline-flex items-center justify-center gap-2 rounded-lg font-semibold;min-height:40px;padding:0 13px;border:1px solid transparent;white-space:nowrap;background:var(--panel2);color:var(--text);cursor:pointer;font-size:15px;font-family:inherit;transition:filter 150ms,box-shadow 150ms}
+.po-btn:not(:disabled):hover {filter:brightness(.89)}
+.po-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.po-btn:disabled{opacity:.48;cursor:default}
+.po-btn .icon{width:16px;height:16px}
+.po-btn.po-green{background:var(--accent);color:var(--accent-ink)}
+.po-btn.po-blue,.po-btn.po-purple{color:var(--accent);border-color:var(--line)}
+.po-btn.po-red{color:var(--red);border-color:var(--line)}
+.po-btn.po-gray{border-color:var(--line)}
+.po-stock-hint{color:var(--accent);font-size:14px}
+.po-buttons,.po-pages {@apply flex justify-end gap-2; margin-top:10px}
+.po-buttons [data-po-save]{font-size:15px;font-weight:700}
+.po-scroll {width:100%;max-width:100%;min-width:0;overflow-x:auto;border:1px solid var(--line);border-radius:9px;background:var(--panel)}
+.po-screen table,.po-document table {border-collapse:collapse;width:100%;min-width:665px;background:var(--panel);margin:0;color:var(--text);font-size:15px;font-family:inherit;font-weight:500;line-height:1.3}
+.po-screen th,.po-screen td,.po-document th,.po-document td {padding:6px 10px;border:1px solid var(--line);text-align:left;height:36px;white-space:nowrap;background:var(--panel);letter-spacing:0;text-transform:none}
+.po-screen thead th,.po-document thead th,.po-screen tfoot th,.po-screen tfoot td,.po-document tfoot th,.po-document tfoot td {background:var(--panel2);color:var(--text);font-size:16px;font-weight:700;border-color:var(--line)}
+.po-screen .num,.po-document .num {text-align:right;font-variant-numeric:tabular-nums}
+.po-items input[type=number]{text-align:right;width:85px;margin:0 0 0 auto;height:32px;padding:0 5px}
+.po-screen tbody tr:hover td{background:var(--panel2)}
+.po-screen .po-extras td{background:var(--panel2)}
+.po-screen .po-extras textarea{padding:8px 10px}
+.po-actions {@apply flex gap-1 items-center}
+.po-actions .po-btn{min-height:26px;height:26px;width:27px;padding:0;border-radius:6px}
+.po-pills .po-btn{width:auto;border-radius:999px;padding:0 9px;font-size:13px;gap:4px}
+.po-pills .icon{width:13px;height:13px}
+.po-screen td.po-empty{text-align:center;height:59px;color:var(--muted);font-size:15px;white-space:normal}
+.po-screen .form-error:empty{display:none}.po-screen .form-error{color:var(--red)}
+.po-document{padding:12px;border-radius:8px;background:var(--panel)}.po-document p{margin:0 0 8px}
+#dialog:has(.po-document){width:min(850px,94vw)}
+@media(max-width:1150px){.po-filter{grid-template-columns:repeat(4,minmax(0,1fr)) auto auto;gap:8px}}
+@media(max-width:980px){.po-head-grid,.po-search-grid,.po-filter{grid-template-columns:repeat(2,minmax(0,1fr))}.po-head-grid .po-btn,.po-search-grid .po-btn{justify-self:start}.po-filter{gap:10px}}
+@media(max-width:560px){.po-head-grid,.po-search-grid,.po-filter{grid-template-columns:minmax(0,1fr)}.po-body{padding:14px}.po-band{padding:10px 14px}.po-screen{gap:12px}.po-filter button{justify-self:stretch}.po-line-options{grid-template-columns:1fr 1fr}.po-items{min-width:690px}.po-buttons .po-btn{min-width:90px}}

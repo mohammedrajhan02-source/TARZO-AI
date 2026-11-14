@@ -1,0 +1,22 @@
+/* Installer presentation only. The original setup controls and PHP are unchanged. */
+@media screen {
+  :root {--ink:#12223d;--muted:#52627c;--green:#075bd8;--mint:#d5e3ff;--line:#c5d2e8;--cream:#eef3ff;--error:#c81d30;}
+  body {background:var(--cream);}
+  .intro {background:#052453;}
+  .wordmark b {border-color:#6684ae;color:#fff;}
+  .wordmark small,.intro .eyebrow,.intro-copy p,.steps li,.steps small,.intro-footer {color:#d0def3;}
+  .steps li>span {border-color:#6684ae;}
+  .steps .current>span {background:#0863ef;color:#fff;border-color:#0863ef;}
+  .page-heading h2,.success-card h2 {color:#052453;}
+  .page-heading .eyebrow {color:#075bd8;}
+  .form-section {background:#fbfcff;border:1px solid var(--line);border-radius:7px;padding:0 15px 15px;}
+  .section-head {background:#d5e3ff;margin:0 -15px 15px;padding:9px 15px;border-radius:6px 6px 0 0;}
+  .section-head>span {color:#075bd8;}
+  input:not([type=radio]) {border-color:#aebed6;color:#12223d;border-radius:4px;}
+  input:focus,.button:focus-visible,button:focus-visible,a:focus-visible {outline-color:#347cf1;}
+  .record-option {border-color:var(--line);}
+  .record-option input {accent-color:#075bd8;}
+  .primary {background:#087d20;border-color:#087d20;border-radius:4px;}.primary:hover {background:#056c19;}
+  .success-mark {background:#e1edff;color:#075bd8;}
+  .setup-main {background:var(--cream);}
+}
